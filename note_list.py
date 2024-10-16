@@ -20,10 +20,17 @@ def note_list():
     for i, v in enumerate(json_array_sorted):
         n = i+1
         title = v["Title"]
-        json_dict["{n}"] = i
+        json_dict[f"{n}"] = v
         print(f"{n} - {title}")
 
 def get_date(x, format="%Y-%m-%d %H:%M:%S.%f"):
     return DT.strptime(x.get("Date"), format)
 
-# res = sorted(data, key=get_date, reverse=True)
+def get_note(note):
+    try:
+        return json_dict[note]
+    except KeyError as e:
+        return "0"
+    
+def get_note_id(note):
+    return note["Id"]

@@ -1,6 +1,6 @@
 from create_file import create_note
 from note_list import note_list, get_note, get_note_id
-from note_modify import delete_data
+from note_modify import delete_data, edite
 
 def interface():
     print("Добрый день! Вы попали на приложение заметок! \n 1 - запись данных \n 2 - вывод данных")
@@ -32,5 +32,19 @@ def option(note):
     if command == "1":
         note_id = get_note_id(note)
         delete_data(note_id)
-        print("Заметка успешно удалена")
+        print("Заметка успешно удалена!")
         interface()
+    elif command == "2":
+        edite_note(note)
+
+def edite_note(note):
+    print(note["Title"])
+    command_title = str(input("Вывожу заголовок заметки, для сохранения - enter \n"))
+    print(note["Body"])
+    command_body = str(input("Вывожу текст заметки, для сохранения - enter \n"))
+    if command_title != "":
+        note["Title"] = command_title
+    if command_body != "":
+        note["Body"] = command_body
+    edite(note)
+    print("Заметка успешно отредактирована!")

@@ -20,20 +20,29 @@ def open_note_list():
     note_list()
     command = str(input('Выберите номер заметки: '))
     note = get_note(command)
+
     if note == "0":
-        print("Вариант невеный, повторите попытку ")
+        print("Вариант неверный, повторите попытку ")
         open_note_list()
     else:
-        print(note)
+        print("Заголвок:")
+        print(f"{note["Title"]}")
+        print("Текст:")
+        print(f"{note["Body"]}")
         option(note)
 
 def option(note):
     command = str(input("Выберите действия с данной заметкой: \n 1 - удаление заметки \n 2 - редактирование заметки \n"))
+    while command != "1" and command != "2":
+        print("Неправильный ввод")
+        command = str(input('Введите число: '))
+
     if command == "1":
         note_id = get_note_id(note)
         delete_data(note_id)
         print("Заметка успешно удалена!")
         interface()
+
     elif command == "2":
         edite_note(note)
 
@@ -42,9 +51,12 @@ def edite_note(note):
     command_title = str(input("Вывожу заголовок заметки, для сохранения - enter \n"))
     print(note["Body"])
     command_body = str(input("Вывожу текст заметки, для сохранения - enter \n"))
+
     if command_title != "":
         note["Title"] = command_title
+
     if command_body != "":
         note["Body"] = command_body
+
     edite(note)
     print("Заметка успешно отредактирована!")
